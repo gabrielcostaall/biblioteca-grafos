@@ -1,0 +1,2 @@
+Numero de componentes: 1
+Componente 1 (tam=5): 1 2 3 4 5

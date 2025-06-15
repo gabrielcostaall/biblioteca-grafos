@@ -1,0 +1,6 @@
+Numero de vertices: 5
+Numero de arestas: 6
+Grau medio: 2.40
+Distribuicao de grau:
+Grau 2: 4 vertices
+Grau 4: 1 vertices
