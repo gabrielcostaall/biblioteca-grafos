@@ -203,7 +203,6 @@ class Grafo:
 
         # Caso tenha pesos negativos → também usa BFS (ignora pesos)
         if not self.tem_pesos_positivos():
-            print("Aviso: grafo contém pesos negativos. Usando BFS sem considerar pesos.")
             return self._bfs_caminho_minimo(inicio, destino)
 
         # Caso contrário, usa Dijkstra (pesos positivos)
