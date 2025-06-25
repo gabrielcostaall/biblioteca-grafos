@@ -1,4 +1,6 @@
-# biblioteca_grafos.py
+#Trabalho de Grafos
+#Gabriel Costa
+#Gabriela Lacerda
 
 from collections import defaultdict, deque
 
