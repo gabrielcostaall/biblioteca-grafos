@@ -219,6 +219,7 @@ class Grafo:
         return dist[destino], caminho
     
     def resolver_labirinto_comparado(self, labirinto, inicio, fim):
+        # Constrói grafo a partir do labirinto
         def construir_grafo():
             linhas, colunas = len(labirinto), len(labirinto[0])
             mapeamento = {}
@@ -230,14 +231,15 @@ class Grafo:
                         id_v += 1
             grafo = defaultdict(list)
             for (i, j), v in mapeamento.items():
-                for dx, dy in [(-1,0),(1,0),(0,-1),(0,1)]:
+                for dx, dy in [(-1,0),(1,0),(0,-1),(0,1)]: # vizinhos (cima, baixo, esquerda, direita)
                     ni, nj = i + dx, j + dy
                     if (ni, nj) in mapeamento:
                         w = mapeamento[(ni, nj)]
-                        grafo[v].append((w, 1))
+                        grafo[v].append((w, 1)) # peso fixo 1
             return mapeamento, grafo
 
         def caminho_dfs(grafo, inicio, fim):
+            # Busca em profundidade para encontrar caminho
             caminho, visitado, achou = [], set(), [False]
             def dfs(u):
                 if achou[0]: return
@@ -254,6 +256,7 @@ class Grafo:
             return caminho
 
         def caminho_bfs(grafo, inicio, fim):
+            # Busca em largura para encontrar caminho
             visitado = set()
             fila = deque([(inicio, [inicio])])
             while fila:
@@ -269,6 +272,7 @@ class Grafo:
             return []
 
         def caminho_astar(grafo, inicio, fim, posicoes):
+            # Busca em A* para encontrar caminho
             def heuristica(a, b):
                 ax, ay = a
                 bx, by = b
@@ -290,20 +294,24 @@ class Grafo:
                         heapq.heappush(fila, (custo + 1 + nova_heur, vizinho, caminho + [vizinho]))
             return []
 
+        # Cria o grafo e obtém os IDs dos vértices inicial e final
         posicoes, grafo = construir_grafo()
         vi = posicoes[inicio]
         vf = posicoes[fim]
 
+        # Executa as três buscas
         dfs_result = caminho_dfs(grafo, vi, vf)
         bfs_result = caminho_bfs(grafo, vi, vf)
         astar_result = caminho_astar(grafo, vi, vf, posicoes)
 
+        # Salva comparação dos resultados em arquivo
         with open("comparacao_buscas.txt", "w") as f:
             f.write("--- COMPARAÇÃO DE BUSCAS ---\n")
             f.write(f"DFS encontrou caminho? {'Sim' if dfs_result else 'Não'} (tamanho: {len(dfs_result)})\n")
             f.write(f"BFS encontrou caminho? {'Sim' if bfs_result else 'Não'} (tamanho: {len(bfs_result)})\n")
             f.write(f"A* encontrou caminho? {'Sim' if astar_result else 'Não'} (tamanho: {len(astar_result)})\n")
 
+        # Se DFS encontrou caminho, exibe representação gráfica em Tkinter
         if dfs_result:
             linhas, colunas = len(labirinto), len(labirinto[0])
             cell_size = 30
@@ -330,6 +338,7 @@ class Grafo:
             root.mainloop()
         else:
             print("Caminho não encontrado!")
+            #Saída caso o caminho não seja encontrado
 
 
 
