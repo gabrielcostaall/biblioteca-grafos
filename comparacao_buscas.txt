@@ -1,0 +1,4 @@
+--- COMPARAÇÃO DE BUSCAS ---
+DFS encontrou caminho? Sim (tamanho: 41)
+BFS encontrou caminho? Sim (tamanho: 29)
+A* encontrou caminho? Sim (tamanho: 29)
